@@ -106,6 +106,10 @@ require("lazy").setup({
         config = function()
             -- require("koda").setup({ transparent = true })
             vim.cmd("colorscheme koda")
+
+            -- FIX: prevent cursor from disappearing over indent guides / left column
+            vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
+            vim.api.nvim_set_hl(0, "CursorLineNr", { bold = true })
         end,
     },
     {
