@@ -20,5 +20,5 @@ A custom **Neovim configuration** optimized for **C++23 development** and **comp
 ```bash
 sudo apt update
 2. Install required packagesBashsudo apt install git g++ gnome-terminal clangd xclip nodejs npm
-PackageDescriptiongitplugin managerg++C++ compilergnome-terminalfor running compiled programsclangdLanguage Server Protocol for autocompletion & diagnosticsxclipsystem clipboard supportnodejs & npmrequired for Treesitter parsers3. Setup Neovim ConfigClone this repository or copy init.lua to: ~/.config/nvim/init.luaOpen Neovim:Bashnvim
-Wait for Lazy.nvim to automatically download and install plugins.⌨ KeybindingsNote: F-keys work in any mode (Normal, Insert, or Visual).KeyActionDetails<kbd>F4</kbd>Toggle CommentLine/Visual<kbd>F5</kbd>Copy entire fileTo system clipboard<kbd>F6</kbd>Format codeLSP or auto-indent<kbd>F8</kbd>Compile & RunOptimized: C++23, -O2 flags<kbd>F9</kbd>Compile & RunDebug: Sanitizer Address/Undefined
+git → plugin managerg++ → C++ compilergnome-terminal → for running compiled programsclangd → Language Server Protocol for autocompletion & diagnosticsxclip → system clipboard supportnodejs & npm → required for Treesitter parsers3. Setup Neovim ConfigClone this repository or copy init.lua to: ~/.config/nvim/init.luaOpen Neovim:Bashnvim
+Wait for Lazy.nvim to automatically download and install plugins.⌨ KeybindingsKeyActionF4Toggle Comment (Line/Visual)F5Copy entire file to system clipboardF6Format code (LSP or auto-indent)F8Compile & Run (Optimized: C++23, -O2 flags)F9Compile & Run (Debug: Sanitizer Address/Undefined)
