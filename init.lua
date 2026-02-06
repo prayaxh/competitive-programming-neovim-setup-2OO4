@@ -32,11 +32,20 @@ local function run_in_system_term(raw_compile_cmd, mode_word)
     local dir = vim.fn.expand("%:p:h")
     local file_name_only = vim.fn.expand("%:t:r")
     local expanded_cmd = raw_compile_cmd:gsub("%%%%:t:r", file_name_only):gsub("%%%%", file_path)
+    
     local bash_logic = string.format(
-        "cd '%s' && echo 'g++ %s' && %s && ./'%s' && echo 'Press any key to exit!'; read -n 1",
+        "cd '%s' && echo 'g++ %s' && %s && ./'%s' && echo ''; echo '-----------------------------'; echo 'Press any key to exit!'; read -n 1",
         dir, mode_word, expanded_cmd, file_name_only
     )
-    local system_cmd = string.format("gnome-terminal -- bash -c %q &", bash_logic)
+    
+    -- GEOMETRY EXPLAINED:
+    -- 80x24  => Width x Height (in characters)
+    -- -0     => 0 pixels from the RIGHT edge
+    -- +0     => 0 pixels from the TOP edge
+    local system_cmd = string.format(
+        "gnome-terminal --geometry=80x24-0+0 --title='Nvim Runner' -- bash -c %q &", 
+        bash_logic
+    )
     os.execute(system_cmd)
 end
 
