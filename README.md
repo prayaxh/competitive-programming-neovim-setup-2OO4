@@ -4,10 +4,10 @@ A custom **Neovim configuration** optimized for **C++23 development** and **comp
 
 ## 🛠 Features
 
-* **Colorscheme:** Koda (Dark / Modern)
-* **LSP:** `clangd` for C++ autocompletion and diagnostics
-* **Treesitter:** Advanced syntax highlighting
-* **Auto-Compile:** Optimized (F8) and sanitized (F9) builds
+* **Colorscheme:** [Koda (Dark / Modern)](https://github.com/oskarnurm/koda.nvim)  
+* **LSP:** `clangd` for C++ autocompletion and diagnostics  
+* **Treesitter:** Advanced syntax highlighting  
+* **Auto-Compile:** Optimized (F8) and sanitized (F9) builds  
 * **Session Management:** Restores open buffers and cursor positions automatically
 
 ---
