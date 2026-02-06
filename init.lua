@@ -34,7 +34,7 @@ local function run_in_system_term(raw_compile_cmd, mode_word)
     local expanded_cmd = raw_compile_cmd:gsub("%%%%:t:r", file_name_only):gsub("%%%%", file_path)
     
     local bash_logic = string.format(
-        "cd '%s' && echo 'g++ %s' && %s && ./'%s' && echo ''; echo '-----------------------------'; echo 'Press any key to exit!'; read -n 1",
+        "cd '%s' && echo 'g++ %s' && %s && ./'%s'; echo 'Press any key to exit!'; read -n 1",
         dir, mode_word, expanded_cmd, file_name_only
     )
     
