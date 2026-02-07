@@ -38,10 +38,6 @@ local function run_in_system_term(raw_compile_cmd, mode_word)
         dir, mode_word, expanded_cmd, file_name_only
     )
     
-    -- GEOMETRY EXPLAINED:
-    -- 80x24  => Width x Height (in characters)
-    -- -0     => 0 pixels from the RIGHT edge
-    -- +0     => 0 pixels from the TOP edge
     local system_cmd = string.format(
         "gnome-terminal --geometry=80x24-0+0 --title='Nvim Runner' -- bash -c %q &", 
         bash_logic
@@ -104,10 +100,7 @@ require("lazy").setup({
         lazy = false,
         priority = 1000,
         config = function()
-            -- require("koda").setup({ transparent = true })
             vim.cmd("colorscheme koda")
-
-            -- FIX: prevent cursor from disappearing over indent guides / left column
             vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
             vim.api.nvim_set_hl(0, "CursorLineNr", { bold = true })
         end,
@@ -174,7 +167,22 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 vim.api.nvim_create_autocmd("VimLeavePre", {
     callback = function()
+        -- 1. Get all buffers currently shown in any window
+        local visible_bufs = {}
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+            visible_bufs[vim.api.nvim_win_get_buf(win)] = true
+        end
+
+        -- 2. Wipe any buffer that isn't currently visible so it's not saved to session
+        for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+            if not visible_bufs[bufnr] and vim.api.nvim_buf_is_loaded(bufnr) then
+                vim.cmd("silent! bwipeout " .. bufnr)
+            end
+        end
+
+        -- 3. Save session now that the buffer list is clean
         vim.cmd("mksession! " .. session_file)
+        
         local views = {}
         for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
             if vim.api.nvim_buf_is_loaded(bufnr) and vim.api.nvim_buf_get_name(bufnr) ~= "" then
